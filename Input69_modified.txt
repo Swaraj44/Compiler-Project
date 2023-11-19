@@ -1,0 +1,60 @@
+
+
+
+
+print: "Check-1" el;
+print: var2
+
+
+print: "Check0" el;
+
+//storing string in array
+
+
+country1 <- "bangladesh"
+country2 <- "usa"
+len1 <- len: country1
+
+print: "Check1" el;
+
+
+
+
+                                //declaring an int variable
+int_i start <- 0
+
+
+print: "Check2" el;
+
+
+                              //declaring an float variable
+float_f temp <- 33.4
+
+print: "Integer and float expression" el;
+
+
+int_i intvar <- 4 mul 5 div len1
+float_f floatvar <- 4.2 sub 6.7 mul temp
+
+print: intvar
+print: floatvar
+
+print: "Check3" el;
+
+
+print: "switch case" el;
+
+int_i ck <- 0
+int_i v1 <- 45 
+
+print: "Check--3.1" el;
+
+ck <- 32
+
+print: ck 
+
+
+print: "Check4.2" el;
+
+
+

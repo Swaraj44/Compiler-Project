@@ -1,0 +1,176 @@
+single line comment
+
+multiple_line_comment
+
+
+
+header declaration
+header declaration
+
+define section
+
+define section
+
+
+Beginning of Main section
+
+#
+
+Variable declaration for:  a
+Variable declaration for: b
+
+
+Variable declaration for:  la
+Variable declaration for: lb
+
+
+Variable declaration for:  fa
+Variable declaration for: c
+Variable declaration for: fd
+Variable declaration for: e
+Variable declaration for: ck
+duplicate variable: ck
+Variable declaration for: f
+duplicate variable: fd
+
+
+Variable declaration for:  ca
+Variable declaration for: cb
+ 
+
+Variable declaration for:  da
+Variable declaration for: db
+
+
+Variable declaration for:  ba
+Variable declaration for: bb
+
+
+Variable declaration for:  sa
+Variable declaration for: sb
+
+
+
+
+Value Assigned
+Value Assigned
+
+
+increment statement
+increment statement
+decrement statement
+decrement statement
+
+
+Input Statement
+
+Input Statement
+
+
+
+Output Statement
+
+Output Statement
+
+Output Statement
+
+
+
+
+Addition Operation done
+
+Subtruction Operation done
+
+Multiplication Operation done
+
+Division Operation done
+
+
+
+
+While loop Statement
+
+
+
+
+If Else Ladder Block
+
+
+
+
+
+FOR(i ,0 ,i Assignment operator
+ b,i inc){
+ //statement
+}
+
+
+
+
+Switch Statement
+
+
+
+Equal Comparation done
+
+Greater than Comparation done
+
+Less than Comparation done
+
+Not equal Comparation done
+
+
+
+
+
+Array declaration Statement
+
+
+
+SORT statement
+
+FACTORIAL statement
+FACTORIAL statement
+
+MAXNUMBER statement
+MAXNUMBER statement
+
+MINNUMBER statement
+MINNUMBER statement
+
+SINFUNC statement
+SINFUNC statement
+
+COSFUNC statement
+COSFUNC statement
+
+TANFUNC statement
+TANFUNC statement
+
+REVERSE statement
+
+LOGFUNC statement
+LOGFUNC statement
+
+GCDFUNC statement
+GCDFUNC statement
+
+LCMFUNC statement
+LCMFUNC statement
+
+POWERFUNC statement
+POWERFUNC statement
+
+
+Function declaration Statement
+
+
+Return statement
+
+
+Ending of Main section
+
+
+Number of variables in Input Code: 19
+Number of keyword Used in Input Code: 79
+

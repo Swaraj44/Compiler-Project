@@ -1,0 +1,150 @@
+## testing1
+
+!<  comments
+for
+multiline >!
+
+
+import <iostream>
+import <stdio.h>
+
+introduce mx    9999999
+introduce min  -9999999
+
+BEGIN:
+
+#
+
+var int_i dec, a,b;
+
+var long_l dec, la,lb;
+
+var float_f dec, fa,c,fd,e,ck,ck,f,fd;
+
+var char_c dec, ca,cb; 
+
+var double_d dec, da,db;
+
+var bool_b dec, ba,bb;
+
+var str_s dec, sa,sb;
+
+
+
+b<-10;
+a <- b;
+
+
+inc a;
+a inc;
+dec b;
+b dec;
+
+
+ii>>a;
+ii>>a>>b;
+
+
+oo<<a<<b;
+oo<<a <<b;
+oo<< b;
+
+
+
+a<-a add 5;
+a<-a sub 5;
+a<-a mul b;
+a<-a div 5;
+
+
+
+when (a -gt b){
+
+//statement
+
+}
+
+
+
+any (a -eq b) then{
+           //statement
+    }
+also (a -eq b) then{
+           //statement
+    } 
+or {
+ //statement
+}
+
+
+
+
+FOR(i ,0 ,i <- b,i inc){
+ //statement
+}
+
+
+
+
+let x
+option 10: oo<<a<<el;
+default :   oo<<x<<el;
+
+
+
+cmp a -eq b: //statement ;
+cmp a -gt b: //statement ;
+cmp a -lt b: //statement ;
+cmp a -ne b: //statement ;
+
+
+
+
+var int_i dec, array(10);
+
+
+SORT array;
+
+FACT 10;
+FACT a;
+
+MAX (a,b);
+MAX (5,10);
+
+MIN (a,10);
+MIN (3,10);
+
+sin 10;
+sin a;
+
+cos c;
+cos 39;
+
+tan 50;
+tan a;
+
+REV array;
+
+log 60;
+log b;
+
+gcd (67,a);
+gcd (b,a);
+
+lcm(a,b);
+lcm(5,b);
+
+pow(a,b);
+pow(a,2);
+
+
+func int_i  add(int_i a,int_i b){
+
+//statement
+
+}
+
+
+return 0;
+
+END

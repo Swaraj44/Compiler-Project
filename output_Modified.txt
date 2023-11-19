@@ -1,0 +1,11 @@
+Check-1
+ERROR: VARIABLE NOT FOUND
+Check0
+Check1
+Check2
+Integer and float expression
+2
+-219.580002
+Check3
+switch case
+Check--3.1
