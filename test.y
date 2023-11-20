@@ -19,11 +19,19 @@
    int switch_matched = 0;
    void AddIntValue  (variableWithValues *pointer,char *name , int value );
    void AddIntValueAsMathematicalOperation (char *name , int value );
+
+void AddIntValueAgain (char *name , int value);
+
    void AddIntValue_Checkwhetherfirstvariabledeclared ( char *name, char *firstVariable , char *operator , int second_value );
    void AddIntValue_Checkwhethersecondvariabledeclared ( char *name, int first_value , char *operator , char *secondVariable );
    void AddIntValue_Checkwhetherfirstsecondvariabledeclared ( char *name, char *firstVariable , char *operator , char *secondVariable );
    void AddFloatValue(variableWithValues *pointer,char *name , float value );
    void AddFloatValueAsMathematicalOperation (char *name , float value );
+
+void AddNewFloatValue (char *name , float value );
+
+
+
    void AddFloatValue_Checkwhetherfirstvariabledeclared ( char *name, char *firstVariable , char *operator , float second_value );
    void AddFloatValue_Checkwhethersecondvariabledeclared ( char *name, float first_value , char *operator , char *secondVariable );
    void AddCharValue(variableWithValues *pointer,char *name ,  char *value );
@@ -122,11 +130,10 @@ Statements : /* empty */
 variable_declaration :  
                         TYPE_INT VARIABLE EQUAL expression                      { AddIntValueAsMathematicalOperation( $2 , $4); }  
                      |  TYPE_FLOAT VARIABLE EQUAL float_expression              { AddFloatValueAsMathematicalOperation ($2,$4); }
-                     |  VARIABLE EQUAL STRING                                   { AddCharValue ( &variableBox[Which_VariableBox_to_be_used_right_now_for_array] , $1 , $3 );} `
+                     |  VARIABLE EQUAL STRING                                   { AddCharValue ( &variableBox[Which_VariableBox_to_be_used_right_now_for_array] , $1 , $3 );} 
                     
 
-                     |  VARIABLE EQUAL float_expression                         { AddFloatValueAsMathematicalOperation ($1,$3); }
-                     |  VARIABLE EQUAL expression                               { AddIntValueAsMathematicalOperation( $1 , $3); }  
+
 
 
                      |  ARRAY VARIABLE INT                                      { MakeAnArrayOfIntegers( $2 , $3);}    
@@ -155,11 +162,20 @@ expression : INT { $$ = $1 ; }
                          if (found == 0) printf ("ERROR: VARIABLE NOT FOUND OR TYPE DOES NOT MATCH\n");
                       }      
         
+           |   VARIABLE EQUAL float_expression                         { AddNewFloatValue($1,$3); }
+           |   VARIABLE EQUAL expression                               { AddIntValueAgain( $1 , $3); }  
            | expression PLUS expression  { $$ = $1 + $3;  }
            | expression MINUS expression { $$ = $1 - $3;  }
            | expression MUL expression   { $$ = $1 * $3;  }
            | expression DIV expression   { if ($3 != 0) { $$ = $1 / $3;  } else printf ("ERROR: DIVISION BY ZERO\n"); }
            ;
+
+expression_Statements :
+                        if_else
+                        |expression
+                        |Statements
+                     ;
+
 
 float_expression : FLOAT { $$ = $1 ; }
            | VARIABLE {  int found = 0;
@@ -189,53 +205,44 @@ inc_dec : VARIABLE INCREMENT_DECREMENT VARIABLE   { inc_dec_function_variableUni
         | VARIABLE INCREMENT_DECREMENT INT        { inc_dec_function($1,$2,$3) ; }
         ;
 
-if_else : IF  Condition_Checking  BLOCKSTART expression BLOCKEND  { if($2) printf("%d\n",$4);}
-        | IF  Condition_Checking  BLOCKSTART expression BLOCKEND ELSE BLOCKSTART expression BLOCKEND  { if($2) printf("%d\n",$4); else printf("%d\n",$8); }
-        | IF  Condition_Checking  BLOCKSTART expression BLOCKEND ELSEIF Condition_Checking BLOCKSTART expression BLOCKEND ELSE BLOCKSTART expression BLOCKEND 
+if_else : IF  Condition_Checking  BLOCKSTART expression_Statements BLOCKEND  { printf("Valid If Block\n"); if($2) printf("%d\n",$4);}
+        | IF  Condition_Checking  BLOCKSTART expression_Statements BLOCKEND ELSE BLOCKSTART expression_Statements BLOCKEND  {  printf("Valid If Block\n"); if($2) printf("%d\n",$4); else printf("%d\n",$8);  }
+        | IF  Condition_Checking  BLOCKSTART expression_Statements BLOCKEND ELSEIF Condition_Checking BLOCKSTART expression_Statements BLOCKEND ELSE BLOCKSTART expression_Statements BLOCKEND 
                                                     {
-                                                        if($2) printf ("%d\n",$4); 
-                                                        else if($7) printf ("%d\n",$9);
-                                                        else printf ("%d\n",$13); 
+                                                         printf("Valid If Block\n");
                                                     }
-        | IF  Condition_Checking  BLOCKSTART 
-                IF  Condition_Checking  BLOCKSTART expression BLOCKEND ELSE BLOCKSTART expression BLOCKEND
-          BLOCKEND 
-          ELSEIF Condition_Checking BLOCKSTART 
-                IF  Condition_Checking  BLOCKSTART expression BLOCKEND ELSE BLOCKSTART expression BLOCKEND
-          BLOCKEND 
-          ELSE BLOCKSTART  
-                IF  Condition_Checking  BLOCKSTART expression BLOCKEND ELSE BLOCKSTART expression BLOCKEND
-          BLOCKEND                                        {
-                                                               if($2)
-                                                               {
-                                                                  if($5) printf ("%d\n",$7);
-                                                                  else   printf ("%d\n",$11);   
-                                                               }
-                                                               else if($15)
-                                                               {
-                                                                  if ($18) printf ("%d\n",$20);
-                                                                  else     printf ("%d\n",$24);
-                                                               }
-                                                               else
-                                                               {
-                                                                  if($30)  printf ("%d\n",$32);
-                                                                  else     printf ("%d\n",$36);
-                                                               }
-                                                          }  
+        
         ;
             
+
+
+
+
+
+
 Condition_Checking : Conditions AND Conditions   { if ($1 && $3) $$ = 1 ; else $$ = 0; }
                    | Conditions OR Conditions    { if ($1 || $3) $$ = 1 ; else $$ = 0; }
                    | Conditions    { $$ = $1; }
                    ;
                 
 
+
+
+
+
+
+
 Conditions : expression GREATERTHAN expression    { if($1>$3) $$ = 1; else $$ = 0;}
            | expression LESSTHAN expression       { if($1<$3) $$ = 1; else $$ = 0;}
            | expression GREATEREQUAL expression   { if($1>=$3) $$ = 1; else $$ = 0;}
            | expression LESSEQUAL expression      { if($1<=$3) $$ = 1; else $$ = 0;}
            | expression EQUALEQUAL expression     { if($1==$3) $$ = 1; else $$ = 0;}  
-           | expression NOTEQUAL expression       { if($1!=$3) $$ = 1; else $$ = 0;}                                                 
+           | expression NOTEQUAL expression       { if($1!=$3) $$ = 1; else $$ = 0;}     
+
+
+
+           
+                                                       
 
 looping :   LOOP INT COMMA INT COMMA PLUS INT BLOCKSTART PRINT  BLOCKEND {  
                                                                    for (int i=$2;i<=$4;i=i+$7)
@@ -395,7 +402,7 @@ looping :   LOOP INT COMMA INT COMMA PLUS INT BLOCKSTART PRINT  BLOCKEND {
                {
                       Display_Function_Array_loop($7,i);
                }
-               //printf("sadsad\n");
+               //printf("Ckeck!!!!\n");
              } 
         |    LOOP VARIABLE TO VARIABLE BLOCKSTART ARRAY VARIABLE PRINT BLOCKEND
              {
@@ -440,7 +447,7 @@ PARTICULAR_CASE : /* NULL */
                   | PARTICULAR_CASE CASE_NUMBER 
                   ;
 
-CASE_NUMBER : expression RIGHTPARANTHESIS expression SEMICOLON  expression { if(switch_matched == 0) { if($1 == $5) { printf("Expected Value = %d\n",$3); switch_matched = 1;} } }
+CASE_NUMBER : expression RIGHTPARANTHESIS expression SEMICOLON  expression { if(switch_matched == 0) { if($1 == $5) { printf("switch_matched  \n");printf("Expected Value = %d\n",$3); switch_matched = 1;} } }
             ;
 
 DEFAULT_CASE : DEF  expression { if(switch_matched == 0) printf("Expected Value = %d\n",$2); }
@@ -465,6 +472,18 @@ functions: SORT ASC VARIABLE { Sort_Asc($3);}
         |  VARIABLE EQUAL GCD expression COMMA expression          { GCD_Calculator($1,$4,$6);}
         |  VARIABLE EQUAL LCM expression COMMA expression          { LCM_Calculator($1,$4,$6);}
 %%
+
+
+
+
+
+
+
+
+
+
+
+
 
 void FindLengthofArray(char *var , char *arr)
 {
@@ -827,6 +846,19 @@ void AddIntValue(variableWithValues *pointer,char *name , int value )
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 void AddIntValueAsMathematicalOperation (char *name , int value)
 {
     int is_that_variable_already_there = 0;
@@ -836,14 +868,21 @@ void AddIntValueAsMathematicalOperation (char *name , int value)
         {
             if ( ( !( strcmp (variableBox[i].variable_type,"int") )  ) )
             {
-                variableBox[i].variable_value = value;
+
+              printf("%s -- variable Alteady Exists !\n",name);
+
+                
                 is_that_variable_already_there = 1;
                 break;
+
+                variableBox[i].variable_value = value;
             }  
         }
     }
     if (is_that_variable_already_there == 0)
     {
+
+    printf("%s -- variable Declared !\n",name);
         
         variableBox[Which_VariableBox_to_be_used_right_now].variable_type   = "int" ;
         variableBox[Which_VariableBox_to_be_used_right_now].variable_name   = name  ;
@@ -854,6 +893,53 @@ void AddIntValueAsMathematicalOperation (char *name , int value)
     }
 
 }
+
+
+
+
+void AddIntValueAgain (char *name , int value)
+{
+    int is_that_variable_already_there = 0;
+    for (int i = 0 ; i < Which_VariableBox_to_be_used_right_now ; i ++)
+    {
+        if ( ( !( strcmp (variableBox[i].variable_name,name) )  ) )
+        {
+            if ( ( !( strcmp (variableBox[i].variable_type,"int") )  ) )
+            {
+
+              printf("value : %d assigned to :%s !\n",value,name);
+
+                variableBox[i].variable_value = value;
+                is_that_variable_already_there = 1;
+                break;
+
+               
+            }  
+        }
+    }
+
+    if (is_that_variable_already_there == 0)
+    {
+
+    printf("%s -- variable Not Declared Yet ! --\n",name);
+    
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void AddIntValue_Checkwhetherfirstvariabledeclared( char *name, char *firstVariable , char *operator , int second_value )
 {
@@ -965,6 +1051,21 @@ void AddFloatValue(variableWithValues *pointer,char *name , float value )
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void AddFloatValueAsMathematicalOperation (char *name , float value )
 {
     int is_that_variable_already_there = 0;
@@ -974,14 +1075,17 @@ void AddFloatValueAsMathematicalOperation (char *name , float value )
         {
             if ( ( !( strcmp (variableBox[i].variable_type,"float") )  ) )
             {
-                variableBox[i].fVariable_value = value;
+
+                printf("%s -- variable Alteady Exists !\n",name);
                 is_that_variable_already_there = 1;
                 break;
+                variableBox[i].fVariable_value = value;
             }    
         }
     }
     if (is_that_variable_already_there == 0)
     {
+         printf("%s -- variable Declared !\n",name);
         
         variableBox[Which_VariableBox_to_be_used_right_now].variable_type   = "float" ;
         variableBox[Which_VariableBox_to_be_used_right_now].variable_name   = name  ;
@@ -992,6 +1096,38 @@ void AddFloatValueAsMathematicalOperation (char *name , float value )
     }
 
 }
+
+
+
+//12
+void AddNewFloatValue (char *name , float value )
+{
+    int is_that_variable_already_there = 0;
+    for (int i = 0 ; i < Which_VariableBox_to_be_used_right_now ; i ++)
+    {
+        if ( ( !( strcmp (variableBox[i].variable_name,name) )  ) )
+        {
+            if ( ( !( strcmp (variableBox[i].variable_type,"float") )  ) )
+            {
+                 printf("value : %f assigned to :%s !\n",value,name);
+
+                variableBox[i].fVariable_value = value;
+                is_that_variable_already_there = 1;
+                break;
+            }    
+        }
+    }
+    if (is_that_variable_already_there == 0)
+    {
+          printf("%s -- variable Not Declared Yet ! --\n",name);
+        
+    }
+
+}
+
+
+
+
 
 void AddFloatValue_Checkwhetherfirstvariabledeclared( char *name, char *firstVariable , char *operator , float second_value )
 {
@@ -1039,6 +1175,10 @@ void AddFloatValue_Checkwhethersecondvariabledeclared ( char *name, float first_
     else printf("ERROR: THE VARIABLE IN THE RIGHT SIDE OF EQUAL(=) IS NOT DECLARED OR DID NOT MATCH WITH THE TYPE(FLOAT)\n"); 
 }
 
+
+
+
+
 void AddCharValue(variableWithValues *pointer,char *name ,  char *value )
 {
     int is_that_variable_already_there = 0;
@@ -1074,6 +1214,9 @@ void AddCharValue(variableWithValues *pointer,char *name ,  char *value )
         }
     }
 }
+
+
+
 
 void MakeAnArrayOfIntegers(char *name , int size)
 {
@@ -1184,6 +1327,10 @@ void StoreCharInAnArray( char *name,int index,char *value)
     
 }
 
+
+
+
+
 void StoreArrayByLoop ( char *name)
 {
     int size ;
@@ -1217,12 +1364,24 @@ void StoreArrayByLoop ( char *name)
     else printf("ERROR:THE ARRAY IS NOT DECLARED YET\n");   
 }
 
+
+
+
 void What_Values_Are_In_VariableBox() // has to be editted
 {
     printf("%d\n",Which_VariableBox_to_be_used_right_now);
     for(int i=0;i<Which_VariableBox_to_be_used_right_now;i++) 
        printf("%s = %d\n",variableBox[i].variable_name,variableBox[i].variable_value);
 }
+
+
+
+
+
+
+
+
+
 
 void Display_Function(char *name)
 {
@@ -1247,6 +1406,11 @@ void Display_Function(char *name)
     }
     else printf("ERROR: VARIABLE NOT FOUND\n");
 }
+
+
+
+
+
 
 void Display_Function_Array(char *name)
 {
@@ -1277,6 +1441,11 @@ void Display_Function_Array(char *name)
     
 }
 
+
+
+
+
+
 void Display_Function_Array_loop(char *name,int loopIndex)
 {
     int size;
@@ -1297,6 +1466,10 @@ void Display_Function_Array_loop(char *name,int loopIndex)
     }
     if(is_printable == 0) printf("ERROR: ARRAY INDEX EXCEEDS\n");
 }   
+
+
+
+
 
 void inc_dec_function(char *name , char * operator , int unit)
 {
@@ -1336,6 +1509,8 @@ void inc_dec_function(char *name , char * operator , int unit)
         
 }
 
+
+
 void inc_dec_function_variableUnit(char *name , char * operator , char *unit)
 {
     int is_unit_declared = 0;
@@ -1350,10 +1525,9 @@ void inc_dec_function_variableUnit(char *name , char * operator , char *unit)
 
 int main(void)
 {
-   
-	//freopen("Input69_modified.txt","r",stdin);
-        
+         
     freopen("Input69_modified.txt","r",stdin);
+
 	freopen("output_Modified.txt","w",stdout);
 	yyparse();
     return 0;
@@ -1364,6 +1538,7 @@ int yywrap(void)
 {
 	return 1;
 }
+
 
 int yyerror(char *s)
 {

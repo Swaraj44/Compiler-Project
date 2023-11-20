@@ -2,3 +2,106 @@ bison -d y69.y|flex test.l |gcc -o app y69.tab.c lex.yy.c |.\app
 
 
 bison -d test.y|flex test.l |gcc -o app test.tab.c lex.yy.c |.\app 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ any: 1 -gt 3
+               {
+                      22
+               }
+     or:
+              {
+                     33
+              }
+
+
+. {
+	printf("Invalid Statement :");
+	printf("%s",strdup(yytext));
+}
+
+
+
+
+
+
+
+
+CASE_NUMBER : expression RIGHTPARANTHESIS expression SEMICOLON  expression { if(switch_matched == 0) { if($1 == $5) { printf("Expected Value = %d\n",$3); switch_matched = 1;} } }
+            ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void AddFloatValue (char *name , float value )
+{
+    int is_that_variable_already_there = 0;
+    for (int i = 0 ; i < Which_VariableBox_to_be_used_right_now ; i ++)
+    {
+        if ( ( !( strcmp (variableBox[i].variable_name,name) )  ) )
+        {
+            if ( ( !( strcmp (variableBox[i].variable_type,"float") )  ) )
+            {
+                variableBox[i].fVariable_value = value;
+                is_that_variable_already_there = 1;
+                break;
+            }    
+        }
+    }
+    if (is_that_variable_already_there == 0)
+    {
+
+        printf("Variable not declared \n");
+        
+        variableBox[Which_VariableBox_to_be_used_right_now].variable_type   = "float" ;
+        variableBox[Which_VariableBox_to_be_used_right_now].variable_name   = name  ;
+        variableBox[Which_VariableBox_to_be_used_right_now].fVariable_value = value   ;
+        variableBox[Which_VariableBox_to_be_used_right_now].cVariable_value = '\0'  ;
+        variableBox[Which_VariableBox_to_be_used_right_now].variable_value = 0;
+        Which_VariableBox_to_be_used_right_now ++ ;
+    }
+
+}

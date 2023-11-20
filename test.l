@@ -7,17 +7,32 @@
 %}
 
 
+digit [0-9]
 digits         [-]?[0-9]+
 alphabets      [a-zA-z]
 alpha_numbers  [a-zA-Z0-9]
 char_type      [']{alpha_numbers}[']
 
+identifiers [a-zA-Z]([a-zA-Z0-9])*
+unary_operator "inc"|"dec"
 
 
 
 
 %%
-"array:"                         {                                      return ARRAY ;}
+
+"import"[ ]+.+\n   {printf("header declaration\n"); }
+"introduce"[ ]+{identifiers}" "+({identifiers}|{digits})    {printf("define section\n");}
+
+
+
+[#][#].*\n         {printf("single line comment\n");}
+[!][<][a-zA-Z0-9!@#*(){}_+-,.:\|?><\n\t ]*[>][!]    {printf("multiple_line_comment\n");}
+
+
+
+
+"ARRAY:"                         {                                      return ARRAY ;}
 "int_i"                           {                                      return TYPE_INT ;}
 "float_f"                         {                                      return TYPE_FLOAT ;}
 "char_c"                          {                                      return TYPE_CHAR ;}
@@ -55,17 +70,18 @@ char_type      [']{alpha_numbers}[']
 
 
 "print:"                        {return PRINT;}
+"oo"[ ]*(<<[ ]*)                {return PRINT;}
 
 
-"if:"                           {return IF;}
-"else:"                         {return ELSE;}
-"elseif:"                       {return ELSEIF;}
+"any:"                           {  return IF;}
+"or:"                            {   return ELSE;}
+"maybe:"                         {   return ELSEIF;}
 
 
 
 "loop:"                         {return LOOP;}
 "store:"                        {return STORE;}
-"switch:"                       {return SWITCH;}
+"match:"                        {return SWITCH;}
 "def:"                          {return DEF;}
 
 
@@ -89,10 +105,11 @@ char_type      [']{alpha_numbers}[']
 
 
 
-"{"                            {return BLOCKSTART;}
+"{"                            {   return BLOCKSTART;}
 
+"->"                            {return TO;}
 
-"}"                            {return BLOCKEND;}
+"}"                            {    return BLOCKEND;}
 
 
 
@@ -117,7 +134,12 @@ char_type      [']{alpha_numbers}[']
 ";"                             {return SEMICOLON;}
 
 [ \n\t]
-[/][/].*                       
+[/][/].* 
+
+. {
+	printf("Error occour %s\n",yytext);
+}
+
 %%
 
 
