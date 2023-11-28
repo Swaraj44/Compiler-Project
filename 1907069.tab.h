@@ -50,47 +50,48 @@
      MUL = 266,
      DIV = 267,
      INCREMENT_DECREMENT = 268,
-     PRINT = 269,
-     ARRAY = 270,
-     TYPE_INT = 271,
-     TYPE_FLOAT = 272,
-     TYPE_CHAR = 273,
-     IF = 274,
-     ELSE = 275,
-     ELSEIF = 276,
-     LOOP = 277,
-     SWITCH = 278,
-     DEF = 279,
-     STORE = 280,
-     BLOCKSTART = 281,
-     TO = 282,
-     BLOCKEND = 283,
-     LEFTPARANTHESIS = 284,
-     RIGHTPARANTHESIS = 285,
-     AND = 286,
-     OR = 287,
-     GREATERTHAN = 288,
-     LESSTHAN = 289,
-     GREATEREQUAL = 290,
-     LESSEQUAL = 291,
-     EQUALEQUAL = 292,
-     COMMA = 293,
-     SEMICOLON = 294,
-     GCD = 295,
-     LCM = 296,
-     SORT = 297,
-     ASC = 298,
-     DES = 299,
-     MAX = 300,
-     MIN = 301,
-     SIN = 302,
-     COS = 303,
-     TAN = 304,
-     STRING = 305,
-     SHOW = 306,
-     LENGTH = 307,
-     NOTEQUAL = 308,
-     NEWLINE = 309
+     WHILE = 269,
+     PRINT = 270,
+     ARRAY = 271,
+     TYPE_INT = 272,
+     TYPE_FLOAT = 273,
+     TYPE_CHAR = 274,
+     IF = 275,
+     ELSE = 276,
+     ELSEIF = 277,
+     LOOP = 278,
+     SWITCH = 279,
+     DEF = 280,
+     STORE = 281,
+     BLOCKSTART = 282,
+     TO = 283,
+     BLOCKEND = 284,
+     LEFTPARANTHESIS = 285,
+     RIGHTPARANTHESIS = 286,
+     AND = 287,
+     OR = 288,
+     GREATERTHAN = 289,
+     LESSTHAN = 290,
+     GREATEREQUAL = 291,
+     LESSEQUAL = 292,
+     EQUALEQUAL = 293,
+     COMMA = 294,
+     SEMICOLON = 295,
+     GCD = 296,
+     LCM = 297,
+     SORT = 298,
+     ASC = 299,
+     DES = 300,
+     MAX = 301,
+     MIN = 302,
+     SIN = 303,
+     COS = 304,
+     TAN = 305,
+     STRING = 306,
+     SHOW = 307,
+     LENGTH = 308,
+     NOTEQUAL = 309,
+     NEWLINE = 310
    };
 #endif
 
@@ -101,7 +102,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 66 "test.y"
+#line 66 "1907069.y"
 
       char     *str;
       int      integerValue;
@@ -110,7 +111,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 114 "test.tab.h"
+#line 115 "1907069.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

@@ -1,0 +1,7 @@
+bison -d 1907069.y
+
+flex 1907069.l
+
+gcc -o app 1907069.tab.c lex.yy.c
+
+.\app

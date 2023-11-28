@@ -1,3 +1,4 @@
+
 ## testing1
 
 !<  comments
@@ -11,131 +12,155 @@ import <stdio.h>
 introduce mx    9999999
 introduce min  -9999999
 
-BEGIN:
-
-#
-
-var int_i dec, a,b;
-
-var long_l dec, la,lb;
-
-var float_f dec, fa,c,fd,e,ck,ck,f,fd;
-
-var char_c dec, ca,cb; 
-
-var double_d dec, da,db;
-
-var bool_b dec, ba,bb;
-
-var str_s dec, sa,sb;
 
 
 
-b<-10;
-a <- b;
+
+oo<< var11
 
 
-inc a;
-a inc;
-dec b;
-b dec;
+oo<<"String Declaration" el;
+str22 <- "usa"
+len1 <- len: str22
+
+oo<< len1
+oo<< "----- Check1 ------" el;
+
+int_i    aa <- 0
+float_f  bb <- 0.1
 
 
-ii>>a;
-ii>>a>>b;
+##output value of aa,bb
+
+oo<< "aa: "
+oo<<aa
+oo<< "bb: "
+oo<<bb
+
+oo<< "switch case" el;
+int_i sss <- -45 
+
+match:
+{
+   -45) 12  ; sss
+    45) aa <- 1 add 3 ; sss
+   def: 14
+}
 
 
-oo<<a<<b;
-oo<<a <<b;
-oo<< b;
+oo<< "Check4" el;
 
 
-
-a<-a add 5;
-a<-a sub 5;
-a<-a mul b;
-a<-a div 5;
-
-
-
-when (a -gt b){
-
-//statement
-
+//any-or
+any: 1 -lt 3
+{
+    2
+}
+or:
+{
+   3
 }
 
 
 
-any (a -eq b) then{
-           //statement
+print: "Check6" el;
+
+//any-maybe-or
+any: 1 -gt 3
+{
+    4
+}
+maybe: 2 -eq 2
+{
+    5
+}
+or:
+{
+   6
+}
+
+
+
+oo<< "Check7" el;
+
+//nested any-maybe-or
+any: 1 -gt 2
+{
+    any: 8 -eq 6
+    { 
+        7
     }
-also (a -eq b) then{
-           //statement
-    } 
-or {
- //statement
+    or:
+    {
+        8
+    }    
+}
+maybe: 3 -ge 3
+{
+    any: 8 -eq 6
+    { 
+        9
+    }
+    or:
+    {
+        10
+    }  
+}
+or:
+{
+    any: 8 -eq 6
+    { 
+        11
+    }
+    or:
+    {
+        12
+    }  
 }
 
 
 
+## Array of 5 Instance
+ARRAY: number 5
+ARRAY: number 0 <- 10
+ARRAY: number 1 <- 5
+ARRAY: number 2 <- 1
+ARRAY: number 3 <- 11
+ARRAY: number 4 <- 55
 
-FOR(i ,0 ,i <- b,i inc){
- //statement
+## Printing Full Array
+oo<< ARRAY: number   
+
+
+oo<< "Check-10" el;
+
+//array mechanism
+print: "array mechanism" el;
+ARRAY: arr1 3
+ARRAY: arr1 0 <- 10
+ARRAY: arr1 1 <- 5.5
+ARRAY: arr1 2 <- 'z'
+print: ARRAY: arr1
+
+
+
+
+
+
+int_i start <- 0
+int_i lenofnumber <- 0
+len <- len: number
+lenofnumber <- len: number
+
+
+int_i a<-0
+
+when: a -lt 3
+{
+oo<<"While Loop" el;
+ 
 }
 
-
-
-
-let x
-option 10: oo<<a<<el;
-default :   oo<<x<<el;
-
-
-
-cmp a -eq b: //statement ;
-cmp a -gt b: //statement ;
-cmp a -lt b: //statement ;
-cmp a -ne b: //statement ;
-
-
-
-
-var int_i dec, array(10);
-
-
-SORT array;
-
-FACT 10;
-FACT a;
-
-MAX (a,b);
-MAX (5,10);
-
-MIN (a,10);
-MIN (3,10);
-
-sin 10;
-sin a;
-
-cos c;
-cos 39;
-
-tan 50;
-tan a;
-
-REV array;
-
-log 60;
-log b;
-
-gcd (67,a);
-gcd (b,a);
-
-lcm(a,b);
-lcm(5,b);
-
-pow(a,b);
-pow(a,2);
 
 
 func int_i  add(int_i a,int_i b){
@@ -145,6 +170,73 @@ func int_i  add(int_i a,int_i b){
 }
 
 
-return 0;
 
-END
+
+
+
+when: a -lt 3
+{
+ 
+
+when: a -lt 3
+{
+ 3333
+}
+
+
+}
+
+
+##For Loop
+
+FOR: 1 , 5 , add 1
+{
+    
+    FOR: 1 , 4 , add 1
+   {
+    11
+   }
+
+}
+
+oo<< "------Check-11-----" el;
+
+oo<<"Printing Array Number" el;
+
+FOR: start , lenofnumber , add 1
+{
+    ARRAY: number oo<<
+}
+
+
+oo<< "Check-11--2" el;
+
+
+
+
+
+
+
+
+
+FOR: start , lenofnumber , add 1
+{
+    ARRAY: number  print:
+}
+
+
+                                                                    
+
+oo<< "Printing a set of numbers" el;
+FOR: 1 , 100 , mul 2
+{
+    print:
+}
+
+oo<< "------Check-13----" el;
+
+
+
+
+
+
